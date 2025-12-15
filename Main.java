@@ -4,6 +4,13 @@ import java.util.Scanner;
 
 public class Main {
 
+    private static void checkExit(String input) {
+        if (input.equalsIgnoreCase("exit")) {
+            System.out.println("Завершение работы программы");
+            System.exit(0);
+        }
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -12,12 +19,15 @@ public class Main {
         int floors;
         while (true) {
             System.out.print("Сколько этажей в доме: ");
+            String input = sc.nextLine().trim();
+            checkExit(input);
+
             try {
-                floors = Integer.parseInt(sc.nextLine());
+                floors = Integer.parseInt(input);
                 if (floors > 1) break;
                 System.out.println("Количество этажей должно быть больше 1");
             } catch (NumberFormatException e) {
-                System.out.println("Введите целое число");
+                System.out.println("Введите целое число или exit");
             }
         }
 
@@ -25,16 +35,19 @@ public class Main {
         int elevatorsCount;
         while (true) {
             System.out.print("Сколько лифтов создать: ");
+            String input = sc.nextLine().trim();
+            checkExit(input);
+
             try {
-                elevatorsCount = Integer.parseInt(sc.nextLine());
+                elevatorsCount = Integer.parseInt(input);
                 if (elevatorsCount > 0) break;
                 System.out.println("Количество лифтов должно быть больше 0");
             } catch (NumberFormatException e) {
-                System.out.println("Введите целое число");
+                System.out.println("Введите целое число или exit");
             }
         }
 
-        // Вывод типов лифтов и их вместимость
+        // Типы лифтов
         System.out.println();
         System.out.println("Типы лифтов:");
         System.out.println("1 — пассажирский (вместимость "
@@ -50,12 +63,15 @@ public class Main {
             int typeInput;
             while (true) {
                 System.out.print("Тип лифта " + (i + 1) + ": ");
+                String input = sc.nextLine().trim();
+                checkExit(input);
+
                 try {
-                    typeInput = Integer.parseInt(sc.nextLine());
+                    typeInput = Integer.parseInt(input);
                     if (typeInput == 1 || typeInput == 2) break;
-                    System.out.println("Введите 1 или 2");
+                    System.out.println("Введите 1, 2 или exit");
                 } catch (NumberFormatException e) {
-                    System.out.println("Введите целое число");
+                    System.out.println("Введите целое число или exit");
                 }
             }
 
@@ -72,17 +88,13 @@ public class Main {
         System.out.println();
         System.out.println("Введите запросы в формате:");
         System.out.println("<откуда> <куда> <количество_людей>");
-        System.out.println("Можно вводить несколько запросов подряд, через пробел или новую строку");
+        System.out.println("Можно вводить несколько запросов подряд");
         System.out.println("Для выхода напишите: exit");
         System.out.println();
 
         while (sc.hasNextLine()) {
             String line = sc.nextLine().trim();
-
-            if (line.equalsIgnoreCase("exit")) {
-                System.out.println("Завершение ввода запросов");
-                break;
-            }
+            checkExit(line);
 
             if (line.isEmpty()) continue;
 
